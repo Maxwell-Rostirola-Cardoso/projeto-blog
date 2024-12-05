@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Velha - Tic Tac Toe</title>
+  <!-- Link do Bootstrap 5.3.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/geral.css">
+
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background-color: #f8f9fa;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .cell:hover {
+      background-color: #e9ecef;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    .btn-restart {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm bg-black navbar-dark">
+            <div class="container-fluid">
+              <img src="imagens do projeto/logonovosemfundo.png" alt="">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="ul">
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="contatos.html">Contatos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="QuemSomos.html">Quem Somos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="jogos.html">Jogos</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+          </nav>
+    </header>
+  <div class="container">
+    <h1 class="text-center my-5">Jogo da Velha</h1>
+
+    <!-- Tabuleiro do Jogo -->
+    <div class="board" id="board"></div>
+
+    <!-- Mensagem de Status -->
+    <div class="message" id="statusMessage"></div>
+
+    <!-- Botão de Reinício -->
+    <button class="btn btn-dark btn-restart" id="restartButton" onclick="restartGame()">Reiniciar Jogo</button>
+  </div>
+
+  <!-- Script JavaScript -->
+  <script>
+    let currentPlayer = 'X';
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
+    let gameActive = true;
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+
+    const boardElement = document.getElementById('board');
+    const statusMessageElement = document.getElementById('statusMessage');
+    
+    function createBoard() {
+      boardElement.innerHTML = '';
+      gameBoard.forEach((cell, index) => {
+        const cellElement = document.createElement('div');
+        cellElement.classList.add('cell');
+        cellElement.textContent = cell;
+        cellElement.dataset.index = index;
+        cellElement.addEventListener('click', handleCellClick);
+        boardElement.appendChild(cellElement);
+      });
+    }
+
+    function handleCellClick(event) {
+      const index = event.target.dataset.index;
+      if (gameBoard[index] !== '' || !gameActive) return;
+      gameBoard[index] = currentPlayer;
+      event.target.textContent = currentPlayer;
+      if (checkWinner()) {
+        statusMessageElement.textContent = `${currentPlayer} Venceu!`;
+        gameActive = false;
+      } else if (gameBoard.every(cell => cell !== '')) {
+        statusMessageElement.textContent = 'Empate!';
+        gameActive = false;
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        statusMessageElement.textContent = `É a vez de ${currentPlayer}`;
+      }
+    }
+
+    function checkWinner() {
+      return winConditions.some(condition => {
+        const [a, b, c] = condition;
+        return gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+      });
+    }
+
+    function restartGame() {
+      gameBoard = ['', '', '', '', '', '', '', '', ''];
+      currentPlayer = 'X';
+      gameActive = true;
+      statusMessageElement.textContent = `É a vez de ${currentPlayer}`;
+      createBoard();
+    }
+
+    // Inicializa o jogo
+    createBoard();
+    statusMessageElement.textContent = `É a vez de ${currentPlayer}`;
+  </script>
+
+  <!-- Scripts do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+  
+
+  <br>
+  <hr>
+  <footer>Este projeto é desenvolvido em conjunto com a disciplina de Programação Web I da Etec Polivalente de Americana e tem como a finalidade de estudar e aprofundar os conhecimentos em HTML, CSS e JS.</footer>
+
+</body>
+</html>

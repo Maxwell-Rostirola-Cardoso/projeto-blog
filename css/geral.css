@@ -1,0 +1,135 @@
+
+body{
+    /*background-color: #E6E6FA;      cor roxinha*/
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+}
+
+
+
+footer{
+    text-align: center;
+}
+
+
+
+
+
+
+.logo{
+    padding-bottom: 10px;
+}
+
+
+
+.postagem img{
+    border-radius: 7px;
+    padding-top: 5px;
+    width: 100px;
+    height: 60px;
+}
+
+
+#navegacao {
+    font-size: small;
+    margin: 5px;
+    margin-bottom: 0px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+a:link, a:visited{
+    color:#ffffff;
+}
+a:hover{
+    color: #fff;
+    background: #59596e;
+}
+
+
+
+/* Formatação Imagens*/
+
+img{
+    width: 10%;
+    
+    
+}
+
+/*TIRAR AS BOLINHAS DO LINK*/
+li{
+    list-style: none;
+}
+
+
+.ul{
+    justify-content: flex-end; 
+}
+
+.navegacao{
+    background-color: #aaaaf5;
+}
+
+
+
+
+
+
+/* Layout para Computador */
+@media (min-width: 1200px){
+    #pc{
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .coluna{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    
+    .postagem{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        justify-content: space-around;
+    }
+}
+
+
+/* Layout Tablet */
+@media (min-width: 768px){
+    #pc{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .coluna{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .postagem{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        justify-content: space-around;
+    }
+}
+
+
+
+
+
